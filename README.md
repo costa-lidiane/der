@@ -11,9 +11,10 @@ Este aplicativo em Streamlit preenche automaticamente as coordenadas geográfica
    - `km`: valor do quilômetro (inteiro ou decimal com vírgula)
 
 2. O app irá:
+   - Pedir para você selecionar a **aba da planilha**
    - Cruzar com a base interna de geolocalização
    - Preencher os campos `x` e `y`
-   - Indicar em vermelho os valores que foram preenchidos automaticamente
+   - Indicar em vermelho os valores preenchidos automaticamente
    - Disponibilizar o download da planilha final
 
 ---
@@ -33,32 +34,34 @@ Este aplicativo em Streamlit preenche automaticamente as coordenadas geográfica
 ## 🚀 Publicação no Streamlit Cloud
 
 1. Faça login em [https://streamlit.io/cloud](https://streamlit.io/cloud) com sua conta GitHub
-2. Crie um repositório no GitHub com:
+2. Crie um repositório no GitHub com os seguintes arquivos:
    - `app_geolocalizacao_spa.py`
    - `NOVA_BASE_DE_GEOLOCALIZACAO_COM_SPA.xlsx`
-3. Em “New app”, selecione o repositório, branch `main`, e o arquivo `app_geolocalizacao_spa.py`
-4. Clique em **Deploy**
+   - `requirements.txt`
+3. No `Streamlit Cloud`, clique em **“New app”**
+4. Escolha:
+   - Repositório: `seu-usuario/app-geolocalizacao-sp`
+   - Branch: `main`
+   - Arquivo: `app_geolocalizacao_spa.py`
+5. Clique em **Deploy**
 
-Seu app estará online com um link público (ex: `https://app-geolocalizacao.streamlit.app`)
+---
+
+## 📦 requirements.txt
+
+Você **deve incluir** este arquivo no repositório com o seguinte conteúdo:
+
 
 ---
 
 ## 💻 Rodar localmente (opcional)
 
-Instale as dependências:
+Instale as dependências com:
 
 ```bash
 pip install streamlit pandas openpyxl
-```
-
-Execute:
-
-```bash
 streamlit run app_geolocalizacao_spa.py
-```
+
 
 ---
 
-## 📄 Licença
-
-Projeto de código aberto. Utilize e modifique conforme necessário.
