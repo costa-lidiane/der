@@ -79,19 +79,24 @@ st.markdown("""
 uploaded_ocorrencias = st.file_uploader("📎 Planilha de ocorrências (xlsx com 'Rodovia' e 'km')", type="xlsx")
 
 if uploaded_ocorrencias:
-    df_base = carregar_base_geolocalizacao()
-    df_ocorrencias = pd.read_excel(uploaded_ocorrencias)
+    aba_selecionada = None
+    with pd.ExcelFile(uploaded_ocorrencias) as xls:
+        abas = xls.sheet_names
+        aba_selecionada = st.selectbox("Selecione a aba da planilha:", abas)
+        if aba_selecionada:
+            df_ocorrencias = pd.read_excel(xls, sheet_name=aba_selecionada)
+            df_base = carregar_base_geolocalizacao()
 
-    if st.button("🚀 Processar e Preencher Coordenadas"):
-        df_resultado = preencher_coordenadas(df_ocorrencias.copy(), df_base)
-        st.success(f"Preenchimento concluído! {df_resultado['preenchido'].sum()} coordenadas preenchidas.")
+            if st.button("🚀 Processar e Preencher Coordenadas"):
+                df_resultado = preencher_coordenadas(df_ocorrencias.copy(), df_base)
+                st.success(f"Preenchimento concluído! {df_resultado['preenchido'].sum()} coordenadas preenchidas.")
 
-        st.dataframe(df_resultado.head(20))
+                st.dataframe(df_resultado.head(20))
 
-        excel_result = gerar_excel_colorido(df_resultado)
-        st.download_button(
-            label="📥 Baixar planilha com preenchimentos em vermelho",
-            data=excel_result,
-            file_name="ocorrencias_com_coordenadas.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
+                excel_result = gerar_excel_colorido(df_resultado)
+                st.download_button(
+                    label="📥 Baixar planilha com preenchimentos em vermelho",
+                    data=excel_result,
+                    file_name="ocorrencias_com_coordenadas.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
