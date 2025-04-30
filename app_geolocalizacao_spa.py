@@ -12,6 +12,7 @@ def carregar_base_geolocalizacao():
     df_base['Rodovia'] = df_base['Rodovia'].apply(ajustar_rodovia)
     df_base = df_base[df_base['Unnamed: 7'].str.contains(",", na=False)].copy()
     df_base[['x', 'y']] = df_base['Unnamed: 7'].str.split(',', expand=True)[[0, 1]].astype(float)
+    df_base['km'] = pd.to_numeric(df_base['km'], errors='coerce')
     return df_base
 
 def ajustar_rodovia(rod):
@@ -28,6 +29,7 @@ def preencher_coordenadas(df_ocorrencias, df_base):
     df_ocorrencias['x'] = df_ocorrencias.get('x', pd.NA)
     df_ocorrencias['y'] = df_ocorrencias.get('y', pd.NA)
     df_ocorrencias['preenchido'] = False
+    df_ocorrencias['km'] = pd.to_numeric(df_ocorrencias['km'], errors='coerce')
 
     for idx, row in df_ocorrencias.iterrows():
         rod = row['Rodovia']
