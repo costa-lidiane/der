@@ -99,6 +99,6 @@ if uploaded_ocorrencias:
                 st.download_button(
                     label="📥 Baixar planilha com preenchimentos em vermelho",
                     data=excel_result,
-                    file_name="ocorrencias_com_coordenadas.xlsx",
+                    file_name="rodovias_com_coordenadas.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 )
